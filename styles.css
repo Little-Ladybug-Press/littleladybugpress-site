@@ -118,6 +118,8 @@ h1 {
 
 .bang { color: inherit; }
 
+.eyebrow.red { color: #c62828; }
+
 .title-accent {
   color: var(--rose);
   text-decoration: underline;

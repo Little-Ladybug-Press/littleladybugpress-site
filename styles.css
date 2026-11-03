@@ -116,7 +116,7 @@ h1 {
   color: #2b5f93;
 }
 
-.bang { color: var(--rose); }
+.bang { color: inherit; }
 
 .lede {
   font-size: 1.12rem;

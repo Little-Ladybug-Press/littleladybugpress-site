@@ -118,6 +118,12 @@ h1 {
 
 .bang { color: inherit; }
 
+.title-accent {
+  color: var(--rose);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
 .lede {
   font-size: 1.12rem;
   color: var(--ink-soft);

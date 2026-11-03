@@ -282,6 +282,24 @@ h2 {
 .prose p { margin: 0 0 18px; color: var(--ink-soft); }
 .prose p:last-child { margin-bottom: 0; }
 
+/* Look inside */
+
+.spreads {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.spreads figure { margin: 0; }
+
+.spreads img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 18px 34px -20px rgba(38, 49, 31, 0.5);
+}
+
 /* Cards */
 
 .cards {
@@ -344,6 +362,15 @@ button:focus-visible {
   .cover-slot { max-width: 340px; }
   .strip dl { grid-template-columns: repeat(2, 1fr); gap: 26px; }
   .cards { grid-template-columns: 1fr; }
+  .spreads {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding-bottom: 10px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .spreads figure { flex: 0 0 78%; scroll-snap-align: start; }
   .site-header nav { gap: 16px; font-size: 0.9rem; }
 }
 

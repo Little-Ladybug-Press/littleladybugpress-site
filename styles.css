@@ -1,14 +1,14 @@
 /* Lily's New World — single page, no build step */
 
 :root {
-  --cream: #e6f1fb;
-  --cream-deep: #d7e7f6;
+  --cream: #cfe3f6;
+  --cream-deep: #b4d2ef;
   --ink: #26311f;
   --ink-soft: #4d5a45;
   --rose: #b5445a;
   --leaf: #3f6b4a;
   --leaf-deep: #2c4a34;
-  --line: #c3d7e8;
+  --line: #a5c3e0;
   --max: 1060px;
 }
 

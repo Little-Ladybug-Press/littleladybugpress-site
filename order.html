@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Order Lily&rsquo;s New World! — Little Ladybug Press</title>
+<meta name="description" content="Order Lily's New World! directly from Little Ladybug Press. Hardcover, $14.99, ships in 2–3 business days within the United States.">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="styles.css?v=14">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="wordmark" href="index.html">Little Ladybug Press</a>
+  <nav aria-label="Main">
+    <a href="index.html#book">The Book</a>
+    <a href="index.html#look">Inside</a>
+    <a href="index.html#authors">About us</a>
+    <a class="nav-buy" href="order.html">Order</a>
+  </nav>
+</header>
+
+<main>
+  <section class="section">
+    <div class="form-wrap">
+      <p class="eyebrow">Order direct</p>
+      <h1 class="form-title">Order <em>Lily&rsquo;s New World!</em></h1>
+      <p class="form-lede">Hardcover, 34 pages, $14.99. Shipping is $4.99 for one copy, $5.99 for two, $6.99 for three or four. We ship within 2&ndash;3 business days, United States only. Texas orders add 8.25% sales tax.</p>
+
+      <!-- Replace REPLACE_WITH_FORM_ID with the endpoint from Formspree, e.g. https://formspree.io/f/xabc1234 -->
+      <form class="order-form" action="https://formspree.io/f/REPLACE_WITH_FORM_ID" method="POST">
+        <input type="hidden" name="_subject" value="New order — Lily's New World">
+        <input type="hidden" name="_next" value="https://littleladybugpress.com/thanks.html">
+
+        <div class="field">
+          <label for="qty">How many copies?</label>
+          <select id="qty" name="quantity" required>
+            <option value="1">1 copy — $14.99</option>
+            <option value="2">2 copies — $29.98</option>
+            <option value="3">3 copies — $44.97</option>
+            <option value="4">4 copies — $59.96</option>
+            <option value="5">5 copies</option>
+            <option value="6">6 copies</option>
+            <option value="7">7 copies</option>
+            <option value="8">8 copies</option>
+            <option value="9">9 copies</option>
+            <option value="10">10 copies</option>
+          </select>
+          <p class="hint">More than ten? Email us and we&rsquo;ll arrange it.</p>
+        </div>
+
+        <div class="field">
+          <label for="name">Your name</label>
+          <input id="name" name="name" type="text" autocomplete="name" required maxlength="80">
+        </div>
+
+        <div class="field">
+          <label for="email">Email address</label>
+          <input id="email" name="email" type="email" autocomplete="email" required maxlength="120">
+          <p class="hint">We use this to confirm your order and send tracking.</p>
+        </div>
+
+        <div class="field">
+          <label for="street">Street address</label>
+          <input id="street" name="street" type="text" autocomplete="address-line1" required maxlength="120">
+        </div>
+
+        <div class="field">
+          <label for="street2">Apartment, suite, etc. <span class="optional">(optional)</span></label>
+          <input id="street2" name="street2" type="text" autocomplete="address-line2" maxlength="80">
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="city">City</label>
+            <input id="city" name="city" type="text" autocomplete="address-level2" required maxlength="60">
+          </div>
+          <div class="field">
+            <label for="state">State</label>
+            <input id="state" name="state" type="text" autocomplete="address-level1" required maxlength="2" pattern="[A-Za-z]{2}" title="Two-letter state code, e.g. TX" placeholder="TX">
+          </div>
+          <div class="field">
+            <label for="zip">ZIP</label>
+            <input id="zip" name="zip" type="text" autocomplete="postal-code" required inputmode="numeric" pattern="[0-9]{5}(-[0-9]{4})?" title="Five-digit ZIP, or ZIP+4" placeholder="78701">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="note">Anything we should know? <span class="optional">(optional)</span></label>
+          <textarea id="note" name="note" rows="3" maxlength="500" placeholder="Gift note, delivery instructions, school or library order&hellip;"></textarea>
+        </div>
+
+        <!-- Honeypot: hidden from people, irresistible to bots. Leave it empty. -->
+        <div class="hp" aria-hidden="true">
+          <label for="company">Company</label>
+          <input id="company" name="company" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="estimate" id="estimate" aria-live="polite"></div>
+
+        <button class="button" type="submit">Send order request</button>
+
+        <p class="form-note">We&rsquo;ll reply with your total and a secure way to pay. Nothing is charged now. Your address is used only to ship your order.</p>
+      </form>
+
+      <p class="form-fallback">Form not working? Email <a href="mailto:sales@littleladybugpress.com">sales@littleladybugpress.com</a> with your quantity and mailing address.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p class="wordmark">Little Ladybug Press</p>
+  <p class="small">ISBN 9798234182678 &middot; &copy; 2026 Vandana Rawal and Paige Suffredini. All rights reserved.</p>
+</footer>
+
+<script>
+(function () {
+  var qty = document.getElementById('qty');
+  var state = document.getElementById('state');
+  var out = document.getElementById('estimate');
+  var PRICE = 14.99, RATE = 0.0825;
+
+  function shipping(n) {
+    if (n <= 1) return 4.99;
+    if (n === 2) return 5.99;
+    return 6.99;
+  }
+
+  function money(v) {
+    return '$' + v.toFixed(2);
+  }
+
+  function update() {
+    var n = parseInt(qty.value, 10) || 1;
+    var books = n * PRICE;
+    var ship = shipping(n);
+    var isTX = (state.value || '').trim().toUpperCase() === 'TX';
+    var tax = isTX ? Math.round((books + ship) * RATE * 100) / 100 : 0;
+    var total = books + ship + tax;
+    out.innerHTML =
+      '<span>' + n + ' &times; ' + money(PRICE) + '</span>' +
+      '<span>Shipping ' + money(ship) + '</span>' +
+      (isTX ? '<span>Texas tax ' + money(tax) + '</span>' : '') +
+      '<strong>Estimated total ' + money(total) + '</strong>' +
+      '<em>Estimate only — we confirm the total by email.</em>';
+  }
+
+  qty.addEventListener('change', update);
+  state.addEventListener('input', update);
+  update();
+})();
+</script>
+
+</body>
+</html>

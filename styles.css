@@ -364,3 +364,139 @@ button:focus-visible {
   html { scroll-behavior: auto; }
   * { transition: none !important; }
 }
+
+/* Order form */
+
+.form-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.form-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.05;
+  margin: 0 0 16px;
+  color: #2b5f93;
+  font-weight: 400;
+}
+
+.form-lede {
+  font-size: 1.05rem;
+  color: var(--ink-soft);
+  margin: 0 0 26px;
+}
+
+.order-form {
+  background: #fdf7ec;
+  border: 1px solid #d9cdb8;
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 20px 36px -26px rgba(22, 40, 60, 0.45);
+}
+
+.field { margin-bottom: 18px; }
+
+.field label {
+  display: block;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #4a3a1e;
+  margin-bottom: 7px;
+}
+
+.optional {
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #8a7c63;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid #c9b79a;
+  border-radius: 8px;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: 3px solid rgba(181, 68, 90, 0.28);
+  border-color: var(--rose);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 2fr 0.9fr 1.1fr;
+  gap: 14px;
+}
+
+.hint {
+  font-size: 0.82rem;
+  color: #6b6152;
+  margin: 7px 0 0;
+}
+
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.estimate {
+  display: grid;
+  gap: 6px;
+  margin: 22px 0 20px;
+  padding: 16px 18px;
+  background: #fff;
+  border: 1px dashed #c9b79a;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+.estimate span { display: flex; justify-content: space-between; }
+
+.estimate strong {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 8px;
+  border-top: 1px solid #e4d9c5;
+  color: var(--ink);
+  font-size: 1.05rem;
+}
+
+.estimate em {
+  font-size: 0.8rem;
+  color: #8a7c63;
+}
+
+.form-note {
+  font-size: 0.85rem;
+  color: #6b6152;
+  margin: 16px 0 0;
+}
+
+.form-fallback {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  margin-top: 22px;
+  text-align: center;
+}
+
+@media (max-width: 620px) {
+  .row { grid-template-columns: 1fr 1fr; }
+  .row .field:first-child { grid-column: 1 / -1; }
+  .order-form { padding: 20px; }
+}

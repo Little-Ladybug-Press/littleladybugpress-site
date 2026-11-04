@@ -28,7 +28,7 @@
       <p class="form-lede">Hardcover, 34 pages, $14.99. Shipping is $4.99 for one copy, $5.99 for two, $6.99 for three or four. We ship within 2&ndash;3 business days, United States only. Texas orders add 8.25% sales tax.</p>
 
       <form class="order-form" action="https://formspree.io/f/xjyyjrkn" method="POST">
-        <input type="hidden" name="_subject" value="New order — Lily's New World">
+        <input type="hidden" id="subject_line" name="_subject" value="New order — Lily's New World">
         <input type="hidden" name="_next" value="https://littleladybugpress.com/thanks.html">
 
         <div class="field">
@@ -97,11 +97,8 @@
 
         <div class="estimate" id="estimate" aria-live="polite"></div>
 
-        <!-- The estimate is sent with the order so the confirmation email has the full breakdown. -->
-        <input type="hidden" id="book_total" name="book_total" value="">
-        <input type="hidden" id="shipping_cost" name="shipping_cost" value="">
-        <input type="hidden" id="sales_tax" name="sales_tax" value="">
-        <input type="hidden" id="estimated_total" name="estimated_total" value="">
+        <!-- The estimate is sent as one block so the notification email shows the full pricing box. -->
+        <input type="hidden" id="pricing_summary" name="estimated_pricing" value="">
 
         <button class="button" type="submit">Send order request</button>
 
@@ -123,10 +120,8 @@
   var qty = document.getElementById('qty');
   var state = document.getElementById('state');
   var out = document.getElementById('estimate');
-  var bookField = document.getElementById('book_total');
-  var shipField = document.getElementById('shipping_cost');
-  var taxField = document.getElementById('sales_tax');
-  var totalField = document.getElementById('estimated_total');
+  var bookField = document.getElementById('pricing_summary');
+  var subjectField = document.getElementById('subject_line');
   var PRICE = 14.99, RATE = 0.0825;
 
   function shipping(n) {
@@ -154,10 +149,16 @@
       '<strong>Estimated total: ' + money(total) + '</strong>' +
       '<em>Estimate only — we confirm the total by email.</em>';
 
-    if (bookField) bookField.value = money(books);
-    if (shipField) shipField.value = money(ship);
-    if (taxField) taxField.value = money(tax);
-    if (totalField) totalField.value = money(total);
+    if (bookField) {
+      bookField.value =
+        'Book: ' + n + ' × ' + money(PRICE) + ' = ' + money(books) + '\n' +
+        'Shipping: ' + money(ship) + '\n' +
+        (isTX ? 'Texas sales tax (8.25%): ' : 'Sales tax (Texas only): ') + money(tax) + '\n' +
+        'Estimated total: ' + money(total);
+    }
+    if (subjectField) {
+      subjectField.value = 'New order — ' + n + (n === 1 ? ' copy' : ' copies') + ' — ' + money(total);
+    }
   }
 
   qty.addEventListener('change', update);

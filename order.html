@@ -97,6 +97,12 @@
 
         <div class="estimate" id="estimate" aria-live="polite"></div>
 
+        <!-- The estimate is sent with the order so the confirmation email has the full breakdown. -->
+        <input type="hidden" id="book_total" name="book_total" value="">
+        <input type="hidden" id="shipping_cost" name="shipping_cost" value="">
+        <input type="hidden" id="sales_tax" name="sales_tax" value="">
+        <input type="hidden" id="estimated_total" name="estimated_total" value="">
+
         <button class="button" type="submit">Send order request</button>
 
         <p class="form-note">We&rsquo;ll reply with your total and a secure way to pay. Nothing is charged now. Your address is used only to ship your order.</p>
@@ -117,6 +123,10 @@
   var qty = document.getElementById('qty');
   var state = document.getElementById('state');
   var out = document.getElementById('estimate');
+  var bookField = document.getElementById('book_total');
+  var shipField = document.getElementById('shipping_cost');
+  var taxField = document.getElementById('sales_tax');
+  var totalField = document.getElementById('estimated_total');
   var PRICE = 14.99, RATE = 0.0825;
 
   function shipping(n) {
@@ -136,16 +146,30 @@
     var isTX = (state.value || '').trim().toUpperCase() === 'TX';
     var tax = isTX ? Math.round((books + ship) * RATE * 100) / 100 : 0;
     var total = books + ship + tax;
+
     out.innerHTML =
-      '<span>' + n + ' &times; ' + money(PRICE) + '</span>' +
-      '<span>Shipping ' + money(ship) + '</span>' +
-      (isTX ? '<span>Texas tax ' + money(tax) + '</span>' : '') +
-      '<strong>Estimated total ' + money(total) + '</strong>' +
+      '<span>Book: ' + n + ' &times; ' + money(PRICE) + ' = ' + money(books) + '</span>' +
+      '<span>Shipping: ' + money(ship) + '</span>' +
+      '<span>' + (isTX ? 'Texas sales tax (8.25%): ' : 'Sales tax (Texas only): ') + money(tax) + '</span>' +
+      '<strong>Estimated total: ' + money(total) + '</strong>' +
       '<em>Estimate only — we confirm the total by email.</em>';
+
+    if (bookField) bookField.value = money(books);
+    if (shipField) shipField.value = money(ship);
+    if (taxField) taxField.value = money(tax);
+    if (totalField) totalField.value = money(total);
   }
 
   qty.addEventListener('change', update);
   state.addEventListener('input', update);
+  state.addEventListener('change', update);
+  state.addEventListener('blur', update);
+  // Browser autofill can populate the state without firing input/change.
+  document.addEventListener('input', update, true);
+  document.addEventListener('change', update, true);
+  window.addEventListener('pageshow', update);
+  setTimeout(update, 250);
+  setTimeout(update, 1200);
   update();
 })();
 </script>

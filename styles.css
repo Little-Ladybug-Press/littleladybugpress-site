@@ -504,10 +504,12 @@ button:focus-visible {
 /* Authors note */
 
 .authors-note {
-  max-width: 46em;
+  max-width: 44em;
   margin: 34px auto 0;
-  color: var(--ink-soft);
-  font-size: 1.02rem;
+  color: var(--ink);
+  font-size: 1.18rem;
+  font-weight: 700;
+  line-height: 1.55;
   text-align: center;
 }
 

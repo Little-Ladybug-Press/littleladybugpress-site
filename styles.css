@@ -529,7 +529,6 @@ button:focus-visible {
 .discovery-art img {
   width: 100%;
   height: auto;
-  transform: scaleX(-1);
   mix-blend-mode: multiply;
 }
 

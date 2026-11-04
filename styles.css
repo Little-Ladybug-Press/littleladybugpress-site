@@ -519,12 +519,12 @@ button:focus-visible {
 
 .discovery-layout {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 46px;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 40px;
   align-items: center;
 }
 
-.discovery-art { margin: 0; }
+.discovery-art { margin: 0 -20px 0 0; }
 
 .discovery-art img {
   width: 100%;
@@ -534,4 +534,5 @@ button:focus-visible {
 
 @media (max-width: 860px) {
   .discovery-layout { grid-template-columns: 1fr; gap: 28px; }
+  .discovery-art { margin: 0; }
 }

@@ -287,6 +287,15 @@ h2 {
   box-shadow: none;
 }
 
+.spreads-note {
+  margin: 26px 0 0;
+  text-align: center;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+
 /* Cards */
 
 .cards {

@@ -194,9 +194,9 @@ h1 {
   overflow: hidden;
   box-shadow:
     0 0 0 3px #111111,
-    0 2px 4px rgba(24, 35, 26, 0.32),
-    0 14px 26px -8px rgba(24, 35, 26, 0.40),
-    20px 34px 52px -18px rgba(24, 35, 26, 0.55);
+    0 3px 6px rgba(20, 30, 22, 0.42),
+    0 20px 32px -6px rgba(20, 30, 22, 0.52),
+    28px 46px 66px -14px rgba(20, 30, 22, 0.72);
 }
 
 /* Binding seam down the spine edge */

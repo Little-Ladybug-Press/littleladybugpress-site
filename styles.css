@@ -187,16 +187,44 @@ h1 {
 
 .cover-slot { perspective: 1200px; }
 
+.book {
+  position: relative;
+  border-radius: 6px 14px 14px 6px;
+  transform: rotate(2.5deg);
+  overflow: hidden;
+  box-shadow:
+    0 0 0 3px #111111,
+    0 2px 4px rgba(24, 35, 26, 0.32),
+    0 14px 26px -8px rgba(24, 35, 26, 0.40),
+    20px 34px 52px -18px rgba(24, 35, 26, 0.55);
+}
+
+/* Binding seam down the spine edge */
+.book::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 8.5%;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.30) 0%,
+    rgba(0, 0, 0, 0.10) 16%,
+    rgba(0, 0, 0, 0.22) 30%,
+    rgba(255, 255, 255, 0.34) 42%,
+    rgba(255, 255, 255, 0.10) 52%,
+    rgba(0, 0, 0, 0.14) 70%,
+    rgba(0, 0, 0, 0.03) 88%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
 .cover-img {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 6px 14px 14px 6px;
-  transform: rotate(2.5deg);
-  box-shadow:
-    0 0 0 3px #111111,
-    3px 12px 18px -8px rgba(38, 49, 31, 0.40),
-    14px 30px 48px -16px rgba(38, 49, 31, 0.55);
 }
 
 /* Details strip */

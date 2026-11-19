@@ -200,26 +200,26 @@ h1 {
 .book-wrap::before {
   content: "";
   position: absolute;
-  top: 4px;
-  left: 6px;
-  right: -9px;
-  bottom: -7px;
+  top: 3px;
+  left: 7px;
+  right: -13px;
+  bottom: -9px;
   z-index: 0;
-  border-radius: 2px 5px 5px 2px;
+  border-radius: 2px 4px 4px 2px;
   background:
     linear-gradient(
       to right,
-      rgba(0, 0, 0, 0.22) 0,
-      rgba(0, 0, 0, 0.04) 8px,
-      rgba(255, 255, 255, 0.16) 13px,
-      rgba(0, 0, 0, 0.06) 100%
+      rgba(0, 0, 0, 0.26) 0,
+      rgba(0, 0, 0, 0.05) 9px,
+      rgba(255, 255, 255, 0.20) 14px,
+      rgba(0, 0, 0, 0.10) 100%
     ),
     repeating-linear-gradient(
       to right,
-      #fffdf6 0 1.4px,
-      #e2dbc9 1.4px 2.4px
+      #fffdf6 0 1.6px,
+      #cdc4ad 1.6px 3.2px
     );
-  box-shadow: 0 2px 5px rgba(20, 30, 22, 0.35);
+  box-shadow: 0 3px 7px rgba(20, 30, 22, 0.38);
 }
 
 .book {
@@ -227,7 +227,20 @@ h1 {
   z-index: 1;
   border-radius: 6px 2px 2px 6px;
   overflow: hidden;
-  box-shadow: 0 0 0 3px #111111;
+}
+
+/* Soft shading where the cover meets the page block */
+.book::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 0.16) 0,
+    rgba(0, 0, 0, 0.04) 8px,
+    rgba(0, 0, 0, 0) 18px
+  );
 }
 
 /* Binding seam down the spine edge */

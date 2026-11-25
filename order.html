@@ -1,12 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://llp-checkout.littleladybugpress.workers.dev; frame-src https://challenges.cloudflare.com; form-action 'self' https://checkout.stripe.com; base-uri 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Order Lily&rsquo;s New World! — Little Ladybug Press</title>
-<meta name="description" content="Order Lily's New World! directly from Little Ladybug Press. Hardcover, $14.99, ships in 2–3 business days within the United States.">
+<title>Order Lily&rsquo;s New World! â€” Little Ladybug Press</title>
+<meta name="description" content="Order Lily's New World! directly from Little Ladybug Press. Hardcover, $14.99, ships in 2â€“3 business days within the United States.">
 <meta name="robots" content="noindex">
-<link rel="stylesheet" href="styles.css?v=20">
+<link rel="stylesheet" href="styles.css?v=21">
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -27,17 +29,15 @@
       <h1 class="form-title">Order <em>Lily&rsquo;s New World!</em></h1>
       <p class="form-lede">Hardcover, 34 pages, $14.99. Shipping is $4.99 for one copy, $5.99 for two, $6.99 for three or four. We ship within 2&ndash;3 business days, United States only. Texas orders add 8.25% sales tax.</p>
 
-      <form class="order-form" action="https://formspree.io/f/xjyyjrkn" method="POST">
-        <input type="hidden" id="subject_line" name="_subject" value="New order — Lily's New World">
-        <input type="hidden" name="_next" value="https://littleladybugpress.com/thanks.html">
+      <form class="order-form" id="order-form" novalidate>
 
         <div class="field">
           <label for="qty">How many copies?</label>
           <select id="qty" name="quantity" required>
-            <option value="1">1 copy — $14.99</option>
-            <option value="2">2 copies — $29.98</option>
-            <option value="3">3 copies — $44.97</option>
-            <option value="4">4 copies — $59.96</option>
+            <option value="1">1 copy â€” $14.99</option>
+            <option value="2">2 copies â€” $29.98</option>
+            <option value="3">3 copies â€” $44.97</option>
+            <option value="4">4 copies â€” $59.96</option>
           </select>
           <p class="hint">More than four? Email <a href="mailto:littleladybugpress@gmail.com">littleladybugpress@gmail.com</a> for a quote.</p>
         </div>
@@ -91,12 +91,13 @@
 
         <div class="estimate" id="estimate" aria-live="polite"></div>
 
-        <!-- The estimate is sent as one block so the notification email shows the full pricing box. -->
-        <input type="hidden" id="pricing_summary" name="estimated_pricing" value="">
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAGSjstpD9BCqiTFk" data-action="checkout" data-theme="light" data-size="flexible"></div>
 
-        <button class="button" type="submit">Send order request</button>
+        <p class="form-error" id="form-error" role="alert" hidden></p>
 
-        <p class="form-note">We&rsquo;ll reply with your total and a secure way to pay. Nothing is charged now. Your address is used only to ship your order.</p>
+        <button class="button" type="submit">Continue to secure payment</button>
+
+        <p class="form-note">You&rsquo;ll pay on Stripe&rsquo;s secure page. We never see your card details. Your address is used only to ship your order.</p>
       </form>
 
       <p class="form-fallback">Form not working? Email <a href="mailto:littleladybugpress@gmail.com">littleladybugpress@gmail.com</a> with your quantity and mailing address.</p>
@@ -107,67 +108,11 @@
 <footer class="site-footer">
   <p class="wordmark">Little Ladybug Press</p>
   <p class="small">ISBN 9798234182678 &middot; &copy; 2026 Vandana Rawal and Paige Suffredini. All rights reserved.</p>
+  <p class="small"><a href="terms.html">Terms</a> &middot; <a href="privacy.html">Privacy</a> &middot; <a href="refund.html">Refunds</a></p>
 </footer>
 
-<script>
-(function () {
-  var qty = document.getElementById('qty');
-  var state = document.getElementById('state');
-  var out = document.getElementById('estimate');
-  var bookField = document.getElementById('pricing_summary');
-  var subjectField = document.getElementById('subject_line');
-  var PRICE = 14.99, RATE = 0.0825;
-
-  function shipping(n) {
-    if (n <= 1) return 4.99;
-    if (n === 2) return 5.99;
-    return 6.99;
-  }
-
-  function money(v) {
-    return '$' + v.toFixed(2);
-  }
-
-  function update() {
-    var n = parseInt(qty.value, 10) || 1;
-    var books = n * PRICE;
-    var ship = shipping(n);
-    var isTX = (state.value || '').trim().toUpperCase() === 'TX';
-    var tax = isTX ? Math.round((books + ship) * RATE * 100) / 100 : 0;
-    var total = books + ship + tax;
-
-    out.innerHTML =
-      '<span>Book: ' + n + ' &times; ' + money(PRICE) + ' = ' + money(books) + '</span>' +
-      '<span>Shipping: ' + money(ship) + '</span>' +
-      '<span>' + (isTX ? 'Texas sales tax (8.25%): ' : 'Sales tax (Texas only): ') + money(tax) + '</span>' +
-      '<strong>Estimated total: ' + money(total) + '</strong>' +
-      '<em>Estimate only — we confirm the total by email.</em>';
-
-    if (bookField) {
-      bookField.value =
-        'Book: ' + n + ' × ' + money(PRICE) + ' = ' + money(books) + '\n' +
-        'Shipping: ' + money(ship) + '\n' +
-        (isTX ? 'Texas sales tax (8.25%): ' : 'Sales tax (Texas only): ') + money(tax) + '\n' +
-        'Estimated total: ' + money(total);
-    }
-    if (subjectField) {
-      subjectField.value = 'New order — ' + n + (n === 1 ? ' copy' : ' copies') + ' — ' + money(total);
-    }
-  }
-
-  qty.addEventListener('change', update);
-  state.addEventListener('input', update);
-  state.addEventListener('change', update);
-  state.addEventListener('blur', update);
-  // Browser autofill can populate the state without firing input/change.
-  document.addEventListener('input', update, true);
-  document.addEventListener('change', update, true);
-  window.addEventListener('pageshow', update);
-  setTimeout(update, 250);
-  setTimeout(update, 1200);
-  update();
-})();
-</script>
+<script src="order.js?v=1" defer></script>
 
 </body>
 </html>
+

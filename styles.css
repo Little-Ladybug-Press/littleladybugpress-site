@@ -583,6 +583,23 @@ button:focus-visible {
   margin: 16px 0 0;
 }
 
+.form-error {
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  border: 1px solid #c0574f;
+  border-radius: 8px;
+  background: #fdf1f0;
+  color: #8c2f28;
+  font-size: 0.9rem;
+}
+
+.cf-turnstile { margin: 20px 0 16px; }
+
+button[type="submit"][disabled] {
+  opacity: 0.65;
+  cursor: progress;
+}
+
 .form-fallback {
   font-size: 0.9rem;
   color: var(--ink-soft);
